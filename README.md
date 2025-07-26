@@ -2,6 +2,8 @@
 
 A simple web application for downloading YouTube videos and playlists.
 
+![Youtuberrr Screenshot](ui.png)
+
 ## About The Project
 
 Youtuberrr is a lightweight web service designed for conveniently downloading content from YouTube. You can paste a link to a single video or an entire playlist, select your desired options, and get the files.
