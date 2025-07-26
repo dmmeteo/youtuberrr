@@ -40,3 +40,40 @@ Youtuberrr is a lightweight web service designed for conveniently downloading co
     ```bash
     make run
     ```
+
+## Running with Docker
+
+You can also run the application using Docker. This is the recommended method for production or if you prefer not to manage Python dependencies locally.
+
+### Option 1: Using Docker
+
+This method uses the official pre-built image from Docker Hub.
+
+1.  **Pull the image:**
+    ```bash
+    docker pull dmmeteo/youtuberrr:main
+    ```
+
+2.  **Run the container:**
+    This command starts the application and maps port `8000` on your host to the container. It also creates a `downloads` directory in your current working directory and mounts it to the container to store the downloaded videos.
+    ```bash
+    docker run -d -p 8000:8000 -v "$(pwd)/downloads:/app/downloads" --name youtuberrr dmmeteo/youtuberrr:main
+    ```
+
+3.  Open your browser and navigate to `http://localhost:8000`.
+
+### Option 2: Using Docker Compose
+
+This method builds the image locally and runs it using the configuration in the `compose.yaml` file.
+
+1.  **Build and run the container:**
+    ```bash
+    docker compose up --build -d
+    ```
+
+2.  Open your browser and navigate to `http://localhost:8000`.
+
+To stop the container, run:
+```bash
+docker compose down
+```
