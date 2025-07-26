@@ -1,9 +1,12 @@
+import re
+
 from jinja2 import Environment, FileSystemLoader
-from litestar import Litestar, get
+from litestar import Litestar, Request, get
 from litestar.contrib.jinja import JinjaTemplateEngine
-from litestar.response import Template
+from litestar.response import Response, Template
 from litestar.template.config import TemplateConfig
 from yt_dlp import version
+from yt_dlp.utils import YoutubeDLError
 
 from app.routers.download import DownloadController
 
@@ -37,7 +40,20 @@ jinja_env.filters["filesizeformat"] = filesizeformat
 # 3. Create the Litestar TemplateConfig
 template_config = TemplateConfig(engine=JinjaTemplateEngine.from_environment(jinja_env))
 
+
+def handle_youtube_dl_errors(request: Request, exc: YoutubeDLError) -> Response:
+    """Handle YoutubeDL errors."""
+    ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
+    error_message = ansi_escape.sub("", str(exc))
+    return Response(
+        content={"status_code": 500, "detail": error_message},
+        status_code=500,
+        media_type="application/json",
+    )
+
+
 app = Litestar(
     route_handlers=[index, DownloadController],
     template_config=template_config,
+    exception_handlers={YoutubeDLError: handle_youtube_dl_errors},
 )

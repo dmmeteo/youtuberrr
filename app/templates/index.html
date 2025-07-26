@@ -4,14 +4,23 @@
 
 {% block content %}
 <div class="p-4 sm:p-6">
-    <h1 class="text-2xl sm:text-3xl font-bold mb-5">Youtuberrr</h1>
-    <form hx-post="/info" hx-target="#response" hx-swap="innerHTML" hx-ext="json-enc">
-        <p class="text-gray-600 mb-2">{{ message }}</p>
-        <div class="flex flex-col sm:flex-row gap-2">
-            <input type="text" name="url" class="border p-3 rounded flex-1 text-base" placeholder="Enter YouTube URL...">
-            <button type="submit" class="bg-blue-500 text-white p-3 rounded font-medium hover:bg-blue-600 w-full sm:w-auto">Get Info</button>
-        </div>
-    </form>
+    <h1 class="text-2xl sm:text-3xl font-bold p-4 sm:p-6">Youtuberrr</h1>
+    <div class="mt-4">
+        <form hx-post="/info"
+            hx-target="#response"
+            hx-swap="innerHTML"
+            hx-ext="json-enc"
+            class="relative p-4 sm:p-6"
+            hx-on::before-request="document.getElementById('search-error-container').innerHTML = ''"
+            hx-on::response-error="document.getElementById('search-error-container').innerHTML = event.detail.xhr.responseText">
+            <p class="text-gray-600 mb-2">{{ message }}</p>
+            <div class="flex flex-col sm:flex-row gap-2">
+                <input type="text" name="url" class="border p-3 rounded flex-1 text-base" placeholder="Enter YouTube URL...">
+                <button type="submit" class="bg-blue-500 text-white p-3 rounded font-medium hover:bg-blue-600 w-full sm:w-auto">Get Info</button>
+            </div>
+            <div id="search-error-container" class="mt-4 text-red-500 font-medium"></div>
+        </form>
+    </div>
     <div id="response" class="mt-4"></div>
 </div>
 {% endblock %}

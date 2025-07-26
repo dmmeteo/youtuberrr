@@ -5,6 +5,8 @@
     hx-swap="outerHTML"
     hx-disabled-elt="#download-btn"
     class="relative p-4 sm:p-6"
+    hx-on::before-request="document.getElementById('download-error-container').innerHTML = ''"
+    hx-on::response-error="document.getElementById('download-error-container').innerHTML = event.detail.xhr.responseText"
 >
     {# HTMX loading indicator #}
     <div class="htmx-indicator hidden htmx-request:flex absolute inset-0 bg-gray-200 bg-opacity-75 items-center justify-center">
@@ -76,4 +78,5 @@
             </div>
         </div>
     </div>
+    <div id="download-error-container" class="mt-4 text-red-500 font-medium"></div>
 </form>
