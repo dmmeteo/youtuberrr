@@ -1,0 +1,19 @@
+[project]
+name = "youtuberrr"
+version = "0.1.0"
+description = "A simple web app to download YouTube videos."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "litestar[jinja,standard]>=2.8.3",
+    "yt-dlp>=2024.4.9",
+    "uvicorn",
+    "pydantic"
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]

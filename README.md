@@ -31,18 +31,12 @@ Youtuberrr is a lightweight web service designed for conveniently downloading co
     cd youtuberrr
     ```
 
-2.  **Create and activate a virtual environment:**
-    ```bash
-    python -m venv venv
-    source venv/bin/activate
-    ```
-
 3.  **Install dependencies:**
     ```bash
-    pip install -r requirements.txt
+    make install
     ```
 
 4.  **Run the application:**
     ```bash
-    litestar run
+    make run
     ```
